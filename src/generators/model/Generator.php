@@ -308,9 +308,8 @@ class Generator extends \yii\gii\generators\model\Generator
              * create gii/[name]GiiantModel.json with actual form data
              */
             $suffix = str_replace(' ', '', $this->getName());
-            $formDataDir = Yii::getAlias('@'.str_replace('\\', '/', $this->ns));
-            $formDataFile = StringHelper::dirname($formDataDir)
-                    .'/gii'
+            $formDataDir = $this->generateFormDataDir();
+            $formDataFile = $formDataDir
                     .'/'.$tableName.$suffix.'.json';
 
             $formData = json_encode(SaveForm::getFormAttributesValues($this, $this->formAttributes()));
@@ -318,6 +317,21 @@ class Generator extends \yii\gii\generators\model\Generator
         }
 
         return $files;
+    }
+
+    /**
+     * Generate directory name for saving form data
+     *
+     * @return string
+     */
+    public function generateFormDataDir()
+    {
+        if ($commonGiiDir = \Yii::getAlias('@common/runtime/gii', false)) {
+            return $commonGiiDir;
+        }
+        if ($appGiiDir = \Yii::getAlias('@runtime/gii', false)) {
+            return $appGiiDir;
+        }
     }
 
     /**
