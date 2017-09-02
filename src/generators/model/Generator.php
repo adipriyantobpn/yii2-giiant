@@ -110,6 +110,8 @@ class Generator extends \yii\gii\generators\model\Generator
 
     protected $classNames2;
 
+    protected $labels;
+
     /**
      * {@inheritdoc}
      */
@@ -253,12 +255,13 @@ class Generator extends \yii\gii\generators\model\Generator
             $queryClassName = ($this->generateQuery) ? $this->generateQueryClassName($className) : false;
             $tableSchema = $db->getTableSchema($tableName);
 
+            $this->labels = $this->generateLabels($tableSchema);
             $params = [
                 'tableName' => $tableName,
                 'className' => $className,
                 'queryClassName' => $queryClassName,
                 'tableSchema' => $tableSchema,
-                'labels' => $this->generateLabels($tableSchema),
+                'labels' => $this->labels,
                 'hints' => $this->generateHints($tableSchema),
                 'rules' => $this->generateRules($tableSchema),
                 'relations' => isset($relations[$tableName]) ? $relations[$tableName] : [],
