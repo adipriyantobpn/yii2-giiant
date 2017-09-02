@@ -378,14 +378,29 @@ class Generator extends \yii\gii\generators\crud\Generator
          */
         $suffix = str_replace(' ', '', $this->getName());
         $controllerFileinfo = pathinfo($controllerFile);
-        $formDataFile = StringHelper::dirname(StringHelper::dirname($controllerFile))
-                .'/gii/'
-                .str_replace('Controller', $suffix, $controllerFileinfo['filename']).'.json';
+        $formDataDir = $this->generateFormDataDir();
+        $formDataFile = $formDataDir
+                .'/'.str_replace('Controller', $suffix, $controllerFileinfo['filename']).'.json';
         //$formData = json_encode($this->getFormAttributesValues());
         $formData = json_encode(SaveForm::getFormAttributesValues($this, $this->formAttributes()));
         $files[] = new CodeFile($formDataFile, $formData);
 
         return $files;
+    }
+
+    /**
+     * Generate directory name for saving form data
+     *
+     * @return string
+     */
+    public function generateFormDataDir()
+    {
+        if ($commonGiiDir = \Yii::getAlias('@common/runtime/gii', false)) {
+            return $commonGiiDir;
+        }
+        if ($appGiiDir = \Yii::getAlias('@runtime/gii', false)) {
+            return $appGiiDir;
+        }
     }
 
     public function render($template, $params = [])

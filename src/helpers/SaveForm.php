@@ -46,8 +46,8 @@ class SaveForm
          * get all possible gii directories with out validation on existing
          */
         $giiDirs = [];
-        $giiDirs[] = \Yii::getAlias('@app/gii');
-        if ($commonGiiDir = \Yii::getAlias('@common/gii', false)) {
+        $giiDirs[] = \Yii::getAlias('@app/runtime/gii');
+        if ($commonGiiDir = \Yii::getAlias('@common/runtime/gii', false)) {
             $giiDirs[] = $commonGiiDir;
         }
         foreach (\Yii::$app->modules as $moduleId => $module) {
