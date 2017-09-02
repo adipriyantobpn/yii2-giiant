@@ -19,7 +19,7 @@
         "dmstr/yii2-db": "*",
         "friendsofphp/php-cs-fixer": "1.* || 2.*",
         "yiisoft/yii2": "~2.0.4",
-        "yiisoft/yii2-gii": "~2.0.4"
+        "yiisoft/yii2-gii": "dev-adip-private-usage"
     },
     "autoload": {
         "psr-4": {
@@ -31,6 +31,13 @@
         "asset-installer-paths": {
             "npm-asset-library": "vendor/npm",
             "bower-asset-library": "vendor/bower"
+        }
+    },
+    "minimum-stability": "dev",
+    "repositories": {
+        "yii2-gii": {
+            "type": "vcs",
+            "url": "https://github.com/adipriyantobpn/yii2-gii"
         }
     }
 }
